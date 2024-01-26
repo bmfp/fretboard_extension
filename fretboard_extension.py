@@ -143,14 +143,14 @@ class FretboardExtension(inkex.GenerateExtension):
         
         frets_tang_lines = Group.new(label="fret_tangs")
         frets_crown_lines = Group.new(label="fret_crowns")
-        last_case = False
         for fret_i in range(self.options.frets + 2):
-            if fret_i == self.options.frets + 1:
-                last_case = True
+            not_real_fret = False
+            if fret_i == 0 or fret_i == self.options.frets + 1:
+                not_real_fret = True
             fret_x = self._to_mm(self.options.scale - self.distance_to_nut(self.options.scale, fret_i))
             fret_y1 = self.midline_y - bridge_width / 2 + fret_x * self.fretboard_angle_tan
             fret_y2 = self.midline_y + bridge_width / 2 - fret_x * self.fretboard_angle_tan
-            if not (self.options.ignore_custom_width or last_case):
+            if not (self.options.ignore_custom_width or not_real_fret):
                 fret_crown = PathElement()
                 fret_crown.set_path(f"M {fret_x} {fret_y1} L {fret_x} {fret_y2}")
                 fret_crown.set_id(f"fret_{fret_i}")
@@ -165,8 +165,8 @@ class FretboardExtension(inkex.GenerateExtension):
             fret_tang.set_id(f"fret_{fret_i}")
             fret_tang.style.update({
                             "fill": None,
-                            "stroke-width": self.options.frets_tang_width if not last_case else 0.1,
-                            "stroke": "#999999" if not last_case else "#ff0000"
+                            "stroke-width": self.options.frets_tang_width if not not_real_fret else 0.1,
+                            "stroke": "#999999" if not not_real_fret else "#ff0000"
                         })
             frets_tang_lines.append(fret_tang)
 
