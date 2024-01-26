@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <name>Fretboard</name>
+  <id>org.inkscape.luthier.fretboard</id>
+   <label xml:space="preserve">
+Simple fretboard designer.
+If you want the frets to be drawn, give the same number of gauges as there are strings.
+If you choose to ignore bridge width, space between fretboard edges and outer strings will be preserved.
+   </label>
+  <param name="scale" type="float" min="1" max="34" gui-text="Scale (inches):">25.5</param>
+  <param name="strings" type="int" min="1" max="8" gui-text="Strings #:">6</param>
+  <param name="strings-color" gui-text="Strings Color:" appearance="colorbutton" type="color">0xe0e0e0ff</param>
+  <param name="frets" type="int" min="1" max="28" gui-text="frets #:">24</param>
+  <param name="frets-color" gui-text="Frets Color:" appearance="colorbutton" type="color">0x999999ff</param>
+  <param name="nut-width" type="float" min="1" max="100" gui-text="Nut width (mm):">43</param>
+  <param name="nut-string-space" type="float" min="1" max="100" gui-text="Nut strings space (mm):">40.08</param>
+  <param name="bridge-width" type="float" min="1" max="100" gui-text="Bridge width (mm):">63</param>
+  <param name="ignore-bridge-width" type="bool" gui-text="Ignore bridge width ?">false</param>
+  <param name="bridge-string-space" type="float" min="1" max="100" gui-text="Bridge strings space (mm):">10.5</param>
+  <param name="strings-gauges" type="string" gui-text="Strings gauges (10,13,17,33,36,46) :">10,13,17,33,36,46,52</param>
+  <param name="frets-tang-width" type="float" min="0.3" max="1" gui-text="Frets tang width (mm):">0.5</param>
+  <param name="frets-crown-width" type="float" min="1" max="4" gui-text="Frets crown width (mm):">2.3</param>
+  <param name="ignore-custom-width" type="bool" gui-text="Ignore strings gauges and fret crowns ?">false</param>
+  <param name="debug" type="bool" gui-text="Debug log">false</param>
+  <effect>
+    <effects-menu>
+      <submenu name="Luthier Tools"/>
+    </effects-menu>
+  </effect>
+  <script>
+    <command location="inx" interpreter="python">fretboard_extension.py</command>
+  </script>
+</inkscape-extension>
