@@ -2,25 +2,115 @@
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
   <name>Fretboard</name>
   <id>org.inkscape.luthier.fretboard</id>
-   <label xml:space="preserve">
+  <param name="tabs" type="notebook">
+    <page name="Fretboard" gui-text="Fretboard">
+      <hbox>
+        <param name="scale" type="float" min="1" max="34" gui-text="Scale:">25.5</param>
+        <param name="scale-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+      <hbox>
+        <param name="fretboard-thickness" type="float" min="1" max="34" gui-text="Fretboard thickness:">6</param>
+        <param name="fretboard-thickness-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+      <param name="strings" type="int" min="1" max="8" gui-text="Strings #:">6</param>
+      <param name="strings-color" gui-text="Strings Color:" appearance="colorbutton" type="color">0xe0e0e0ff</param>
+      <hbox>
+        <param name="nut-radius" type="float" min="6" max="30" gui-text="Radius at nut:">12</param>
+        <param name="nut-radius-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+      <hbox>
+        <param name="nut-width" type="float" min="1" max="100" gui-text="Nut width:">43</param>
+        <param name="nut-width-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+      <hbox>
+        <param name="nut-string-space" type="float" min="1" max="100" gui-text="Nut strings space:">40.08</param>
+        <param name="nut-string-space-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+      <hbox>
+        <param name="bridge-radius" type="float" min="6" max="30" gui-text="Radius at bridge:">12</param>
+        <param name="bridge-radius-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+      <hbox>
+        <param name="bridge-width" type="float" min="1" max="100" gui-text="Bridge width:">63</param>
+        <param name="bridge-width-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+      <param name="ignore-bridge-width" type="bool" gui-text="Ignore bridge width ?">false</param>
+      <hbox>
+        <param name="bridge-string-space" type="float" min="1" max="100" gui-text="Bridge strings space:">10.5</param>
+        <param name="bridge-string-space-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+      <param name="strings-gauges" type="string" gui-text="Strings gauges (10,13,17,33,36,46) :">10,13,17,33,36,46,52</param>
+      <param name="draw-profile" type="bool" gui-text="Draw fretboard side view ?">false</param>
+      <param name="ignore-custom-width" type="bool" gui-text="Ignore strings gauges and fret crowns ?">false</param>
+    </page>
+    <page name="Frets" gui-text="Frets">
+      <param name="frets" type="int" min="1" max="28" gui-text="frets #:">24</param>
+      <param name="frets-color" gui-text="Frets Color:" appearance="colorbutton" type="color">0x999999ff</param>
+      <hbox>
+        <param name="frets-tang-width" type="float" min="0.3" max="1" gui-text="Frets tang width:">0.5</param>
+        <param name="frets-tang-width-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+      <hbox>
+        <param name="frets-crown-height" type="float" min="1" max="4" gui-text="Frets crown height:">1.4</param>
+        <param name="frets-crown-height-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+      <hbox>
+        <param name="frets-crown-width" type="float" min="1" max="4" gui-text="Frets crown width:">2.3</param>
+        <param name="frets-crown-width-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+    </page>
+    <page name="Help" gui-text="Help">
+      <label xml:space="preserve">
 Simple fretboard designer.
 If you want the frets to be drawn, give the same number of gauges as there are strings.
 If you choose to ignore bridge width, space between fretboard edges and outer strings will be preserved.
-   </label>
-  <param name="scale" type="float" min="1" max="34" gui-text="Scale (inches):">25.5</param>
-  <param name="strings" type="int" min="1" max="8" gui-text="Strings #:">6</param>
-  <param name="strings-color" gui-text="Strings Color:" appearance="colorbutton" type="color">0xe0e0e0ff</param>
-  <param name="frets" type="int" min="1" max="28" gui-text="frets #:">24</param>
-  <param name="frets-color" gui-text="Frets Color:" appearance="colorbutton" type="color">0x999999ff</param>
-  <param name="nut-width" type="float" min="1" max="100" gui-text="Nut width (mm):">43</param>
-  <param name="nut-string-space" type="float" min="1" max="100" gui-text="Nut strings space (mm):">40.08</param>
-  <param name="bridge-width" type="float" min="1" max="100" gui-text="Bridge width (mm):">63</param>
-  <param name="ignore-bridge-width" type="bool" gui-text="Ignore bridge width ?">false</param>
-  <param name="bridge-string-space" type="float" min="1" max="100" gui-text="Bridge strings space (mm):">10.5</param>
-  <param name="strings-gauges" type="string" gui-text="Strings gauges (10,13,17,33,36,46) :">10,13,17,33,36,46,52</param>
-  <param name="frets-tang-width" type="float" min="0.3" max="1" gui-text="Frets tang width (mm):">0.5</param>
-  <param name="frets-crown-width" type="float" min="1" max="4" gui-text="Frets crown width (mm):">2.3</param>
-  <param name="ignore-custom-width" type="bool" gui-text="Ignore strings gauges and fret crowns ?">false</param>
+      </label>
+    </page>
+  </param>
   <param name="debug" type="bool" gui-text="Debug log">false</param>
   <effect>
     <effects-menu>
