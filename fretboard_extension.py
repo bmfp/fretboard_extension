@@ -176,9 +176,6 @@ class FretboardExtension(inkex.GenerateExtension):
             profile = self.generate_sideview()
             yield profile
 
-        # fretboard.append(profile)
-
-        # return fretboard
 
     def generate_fretboard_scale_outline(self) -> Group:
         fretboard_scale_outline_points = [
