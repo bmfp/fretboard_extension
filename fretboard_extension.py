@@ -18,18 +18,19 @@ from typing import Union
 import inkex
 from inkex import Group, PathElement, Polygon, Rectangle, Style
 from inkex.paths import Arc, Line, Move
+from inkex.transforms import Vector2d
 
 
 class FretboardExtension(inkex.GenerateExtension):
     """FretboardExtension designer class"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.bridge_width = 0.0
         self.midline_y = 0
         self.fretboard_angle_tan = 0.0
 
-    def add_arguments(self, pars):
+    def add_arguments(self, pars) -> None:
         unit_choices = ["in", "mm"]
         pars.add_argument("--tabs", type=str, help="Selected tab, unused")
         pars.add_argument("--scale", type=float, help="Scale")
@@ -117,7 +118,7 @@ class FretboardExtension(inkex.GenerateExtension):
         pars.add_argument("--debug", type=inkex.Boolean, help="Show debug messages")
 
     def generate(self):
-        self.debug_msg("Debug messages\n===========\n")
+        self.debug_msg(msg="Debug messages\n===========\n")
 
         for option in self.options.__dict__:
             if (
@@ -125,18 +126,18 @@ class FretboardExtension(inkex.GenerateExtension):
                 and self.options.__dict__.get(f"{option}_unit") == "in"
             ):
                 self.options.__dict__.update(
-                    {option: self._to_mm(self.options.__dict__.get(option))}
+                    {option: self._to_mm(inches=self.options.__dict__.get(option))}
                 )
-        self.debug_msg(f"options: {self.options.__dict__}")
+        self.debug_msg(msg=f"options: {self.options.__dict__}")
 
         self.strings_color = f"#{hex(self.options.strings_color)[2:-2]}"
         self.strings_opacity = (self.options.strings_color & 255) / 255
         self.debug_msg(
-            f"strings_color: {self.options.strings_color}, {self.strings_color}, opacity: {self.strings_opacity}"
+            msg=f"strings_color: {self.options.strings_color}, {self.strings_color}, opacity: {self.strings_opacity}"
         )
         self.frets_color = f"#{hex(self.options.frets_color)[2:-2]}"
         self.midline_y = self.set_midline()
-        self.debug_msg(f"midline_y: {self.midline_y}")
+        self.debug_msg(msg=f"midline_y: {self.midline_y}")
 
         if not self.options.ignore_bridge_width:
             self.bridge_width = self.options.bridge_width
@@ -146,14 +147,14 @@ class FretboardExtension(inkex.GenerateExtension):
                 + self.options.nut_width
                 - self.options.nut_string_space
             )
-            self.debug_msg(f"bridge_width: {self.bridge_width}")
+            self.debug_msg(msg=f"bridge_width: {self.bridge_width}")
 
         self.fretboard_angle_tan = (
             self.bridge_width / 2 - self.options.nut_width / 2
         ) / self.options.scale
         self.fretboard_angle = math.atan(self.fretboard_angle_tan)
         self.debug_msg(
-            f"fretboard_angle: {self.fretboard_angle} rad, {self.fretboard_angle * 180 / math.pi}°"
+            msg=f"fretboard_angle: {self.fretboard_angle} rad, {self.fretboard_angle * 180 / math.pi}°"
         )
 
         fretboard = Group.new(label="fretboard")
@@ -198,7 +199,7 @@ class FretboardExtension(inkex.GenerateExtension):
     def generate_fretboard_outline(self) -> Group:
         pass
         last_fret_x = self.options.scale - self.distance_to_nut(
-            self.options.scale, self.options.frets + 1
+            scale=self.options.scale, n=self.options.frets + 1
         )
         last_fret_y1 = (
             self.midline_y
@@ -230,7 +231,7 @@ class FretboardExtension(inkex.GenerateExtension):
     def generate_strings(self) -> Group:
         strings_gauges = self.options.strings_gauges.split(",")
         self.debug_msg(
-            f"strings_gauges: {strings_gauges}, len(strings_gauges): {len(strings_gauges)}"
+            msg=f"strings_gauges: {strings_gauges}, len(strings_gauges): {len(strings_gauges)}"
         )
 
         if self.options.ignore_custom_width:
@@ -240,12 +241,12 @@ class FretboardExtension(inkex.GenerateExtension):
                 try:
                     strings_gauges[sg] = int(strings_gauges[sg])
                 except Exception as e:
-                    self.debug_msg(f"strings_gauges[sg], {e}")
+                    self.debug_msg(msg=f"strings_gauges[sg], {e}")
             strings_gauges.reverse()
         else:
             strings_gauges = [10] * self.options.strings
             self.debug_msg(
-                f"gauges list items don't match strings number\n{strings_gauges}"
+                msg=f"gauges list items don't match strings number\n{strings_gauges}"
             )
 
         strings_lines = Group.new(label="strings")
@@ -284,7 +285,7 @@ class FretboardExtension(inkex.GenerateExtension):
             if fret_i == 0 or fret_i == self.options.frets + 1:
                 not_real_fret = True
             fret_x = self.options.scale - self.distance_to_nut(
-                self.options.scale, fret_i
+                scale=self.options.scale, n=fret_i
             )
             fret_y1 = (
                 self.midline_y
@@ -329,7 +330,7 @@ class FretboardExtension(inkex.GenerateExtension):
         y_offset = self.set_midline() * 2
 
         side_radiused_x = self.options.scale - self.distance_to_nut(
-            self.options.scale, self.options.frets + 1
+            scale=self.options.scale, n=self.options.frets + 1
         )
         side_outline = Rectangle.new(
             left=side_radiused_x,
@@ -342,7 +343,7 @@ class FretboardExtension(inkex.GenerateExtension):
             y_offset
             + self.options.bridge_radius
             - math.sqrt(
-                pow(self.options.bridge_radius, 2) - pow(self.bridge_width / 2, 2)
+                pow(self.options.bridge_radius, 2) - pow(base=self.bridge_width / 2, exp=2)
             )
         )
         side_radiused_y2 = (
@@ -373,19 +374,20 @@ class FretboardExtension(inkex.GenerateExtension):
         # frets
         for fret_i in range(1, self.options.frets + 1):
             fret_x = self.options.scale - self.distance_to_nut(
-                self.options.scale, fret_i
+                scale=self.options.scale, n=fret_i
             )
             fret_path = PathElement.new(
                 path=[
-                    Move(fret_x - self.options.frets_crown_width / 2, y_offset),
+                    Move(x=fret_x - self.options.frets_crown_width / 2, y=y_offset),
+                    # don't use kwargs, due to __init__ overload
                     Arc(
-                        rx=self.options.frets_crown_width / 2,
-                        ry=self.options.frets_crown_height,
-                        x_axis_rotation=0,
-                        large_arc=0,
-                        sweep=1,
-                        x=fret_x + self.options.frets_crown_width / 2,
-                        y=y_offset,
+                        self.options.frets_crown_width / 2,
+                        self.options.frets_crown_height,
+                        0,
+                        0,
+                        1,
+                        fret_x + self.options.frets_crown_width / 2,
+                        y_offset,
                     ),
                 ],
                 id=f"side_fret_{fret_i}",
@@ -408,14 +410,14 @@ class FretboardExtension(inkex.GenerateExtension):
         return inches * 25.4
 
     @staticmethod
-    def distance_to_nut(scale, n):
+    def distance_to_nut(scale: float, n: int) -> float:
         # d = s – (s / (2 ^ (n / 12)))
         # d = distance from nut
         # s = scale length
         # n = fret number
-        return scale - (scale / (pow(2, (n / 12))))
+        return scale - (scale / (pow(base=2, exp=(n / 12))))
 
-    def debug_msg(self, msg):
+    def debug_msg(self, msg) -> None:
         if self.options.debug:
             self.msg(msg=msg)
 
