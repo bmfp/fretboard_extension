@@ -103,6 +103,34 @@
         </param>
       </hbox>
     </page>
+    <page name="FretsToolPaths" gui-text="Fret slots toolpaths">
+      <param name="ftp-tool-draw" type="bool" gui-text="Draw fret slots toolpaths">false</param>
+      <hbox>
+        <param name="ftp-tool-diameter" type="float" min="0.1" max="1" gui-text="Tool diameter:">0.5</param>
+        <param name="ftp-tool-diameter-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+      <param name="ftp-tool-stepover" type="int" min="1" max="100" gui-text="Tool stepover (%):">50</param>
+      <hbox>
+        <param name="ftp-slot-width" type="float" min="0.1" max="1" gui-text="Slot width:">0.6</param>
+        <param name="ftp-slot-width-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+      <hbox>
+        <param name="ftp-slot-margin" type="float" min="-10.0" max="10.0" gui-text="Slot length margin:">0.0</param>
+        <param name="ftp-slot-margin-unit" type="optiongroup" appearance="radio" gui-text="unit:">
+          <option value="mm">mm</option>
+          <separator />
+          <option value="in">in</option>
+        </param>
+      </hbox>
+    </page>
     <page name="Help" gui-text="Help">
       <label xml:space="preserve">
 Simple fretboard designer.
@@ -112,7 +140,7 @@ If you choose to ignore bridge width, space between fretboard edges and outer st
     </page>
   </param>
   <param name="debug" type="bool" gui-text="Debug log">false</param>
-  <effect>
+  <effect refresh-extensions="true">
     <effects-menu>
       <submenu name="Luthier Tools"/>
     </effects-menu>
