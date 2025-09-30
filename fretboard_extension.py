@@ -13,7 +13,7 @@ Simple extension for inkscape to draw guitar scale, fretboard boundaries and fre
 """
 
 import math
-from typing import Union
+from typing import List, Union
 
 import inkex
 from inkex import (Group, PathElement, Polygon, Polyline, Rectangle, Style,
@@ -196,9 +196,9 @@ class FretboardExtension(inkex.GenerateExtension):
         fretboard.append(fretboard_scale_outline)
         fretboard.append(fretboard_outline)
         fretboard.append(frets_tang_lines)
+        fretboard.append(strings_lines)
         if not self.options.ignore_custom_width:
             fretboard.append(frets_crown_lines)
-            fretboard.append(strings_lines)
         if self.options.ftp_tool_draw:
             fretboard.append(fret_slots_toolpaths)
         yield fretboard
@@ -311,12 +311,12 @@ class FretboardExtension(inkex.GenerateExtension):
             strings_lines.append(string)
         return strings_lines
 
-    def generate_frets(self) -> list[Group]:
+    def generate_frets(self) -> List[Group]:
         frets_tang_lines = Group.new(label="fret_tangs")
         frets_crown_lines = Group.new(label="fret_crowns")
+        frets_toolpath_lines = Group.new(label="frets_toolpath_lines")
         if self.options.ftp_tool_draw:
             if self.ftp_tool_diameter <= self.ftp_slot_width:
-                frets_toolpath_lines = Group.new(label="frets_toolpath_lines")
                 # 1 full pass min + remaining / cutting width
                 passes = math.ceil(
                     1
