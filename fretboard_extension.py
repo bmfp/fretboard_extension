@@ -457,21 +457,21 @@ class FretboardExtension(inkex.GenerateExtension):
         points = [
             (
                 fret_x - self.ftp_slot_width / 2 + self.ftp_tool_diameter / 2,
-                fret_y1 + self.ftp_slot_margin,
+                fret_y1 + self.ftp_slot_margin + self.ftp_tool_diameter / 2,
             ),
             (
                 fret_x - self.ftp_slot_width / 2 + self.ftp_tool_diameter / 2,
-                fret_y2 - self.ftp_slot_margin,
+                fret_y2 - self.ftp_slot_margin - self.ftp_tool_diameter / 2,
             ),
         ]
         # passes 2+
         for pass_i in range(2, passes + 1):
             if pass_i % 2 == 0:
-                y1 = fret_y2 - self.ftp_slot_margin
-                y2 = fret_y1 + self.ftp_slot_margin
+                y1 = fret_y2 - self.ftp_slot_margin - self.ftp_tool_diameter / 2
+                y2 = fret_y1 + self.ftp_slot_margin + self.ftp_tool_diameter / 2
             else:
-                y1 = fret_y1 + self.ftp_slot_margin
-                y2 = fret_y2 - self.ftp_slot_margin
+                y1 = fret_y1 + self.ftp_slot_margin + self.ftp_tool_diameter / 2
+                y2 = fret_y2 - self.ftp_slot_margin - self.ftp_tool_diameter / 2
 
             x = (
                 fret_x
