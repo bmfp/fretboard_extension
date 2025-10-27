@@ -5,7 +5,7 @@
   <param name="tabs" type="notebook">
     <page name="Fretboard" gui-text="Fretboard">
       <hbox>
-        <param name="scale" type="float" min="1" max="34" gui-text="Scale:">25.5</param>
+        <param name="scale" type="float" min="0.01" max="37" precision="2" gui-text="Scale:">25.5</param>
         <param name="scale-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -13,7 +13,7 @@
         </param>
       </hbox>
       <hbox>
-        <param name="fretboard-thickness" type="float" min="1" max="34" gui-text="Fretboard thickness:">6</param>
+        <param name="fretboard-thickness" type="float" min="0.01" max="34" precision="2" gui-text="Fretboard thickness:">6</param>
         <param name="fretboard-thickness-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -23,7 +23,7 @@
       <param name="strings" type="int" min="1" max="8" gui-text="Strings #:">6</param>
       <param name="strings-color" gui-text="Strings Color:" appearance="colorbutton" type="color">0xe0e0e0ff</param>
       <hbox>
-        <param name="nut-radius" type="float" min="6" max="30" gui-text="Radius at nut:">12</param>
+        <param name="nut-radius" type="float" min="1" max="30" precision="2" gui-text="Radius at nut:">12</param>
         <param name="nut-radius-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -31,7 +31,7 @@
         </param>
       </hbox>
       <hbox>
-        <param name="nut-width" type="float" min="1" max="100" gui-text="Nut width:">43</param>
+        <param name="nut-width" type="float" min="0.01" max="100" precision="3" gui-text="Nut width:">43</param>
         <param name="nut-width-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -39,7 +39,7 @@
         </param>
       </hbox>
       <hbox>
-        <param name="nut-string-space" type="float" min="1" max="100" gui-text="Nut strings space:">40.08</param>
+        <param name="nut-string-space" type="float" min="0.01" max="100" precision="3" gui-text="Nut strings space:">40.08</param>
         <param name="nut-string-space-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -47,7 +47,7 @@
         </param>
       </hbox>
       <hbox>
-        <param name="bridge-radius" type="float" min="6" max="30" gui-text="Radius at bridge:">12</param>
+        <param name="bridge-radius" type="float" min="1" max="30" precision="2" gui-text="Radius at bridge:">12</param>
         <param name="bridge-radius-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -55,7 +55,7 @@
         </param>
       </hbox>
       <hbox>
-        <param name="bridge-width" type="float" min="1" max="100" gui-text="Bridge width:">63</param>
+        <param name="bridge-width" type="float" min="0.01" max="100" precision="3" gui-text="Bridge width:">63</param>
         <param name="bridge-width-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -64,7 +64,7 @@
       </hbox>
       <param name="ignore-bridge-width" type="bool" gui-text="Ignore bridge width ?">false</param>
       <hbox>
-        <param name="bridge-string-space" type="float" min="1" max="100" gui-text="Bridge strings space:">10.5</param>
+        <param name="bridge-string-space" type="float" min="0.01" max="100" precision="3" gui-text="Bridge strings space:">10.5</param>
         <param name="bridge-string-space-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -79,7 +79,7 @@
       <param name="frets" type="int" min="1" max="28" gui-text="frets #:">24</param>
       <param name="frets-color" gui-text="Frets Color:" appearance="colorbutton" type="color">0x999999ff</param>
       <hbox>
-        <param name="frets-tang-width" type="float" min="0.3" max="1" gui-text="Frets tang width:">0.5</param>
+        <param name="frets-tang-width" type="float" min="0.01" max="1" precision="3" gui-text="Frets tang width:">0.5</param>
         <param name="frets-tang-width-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -87,7 +87,7 @@
         </param>
       </hbox>
       <hbox>
-        <param name="frets-crown-height" type="float" min="1" max="4" gui-text="Frets crown height:">1.4</param>
+        <param name="frets-crown-height" type="float" min="0.01" max="4" precision="3" gui-text="Frets crown height:">1.4</param>
         <param name="frets-crown-height-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -95,7 +95,7 @@
         </param>
       </hbox>
       <hbox>
-        <param name="frets-crown-width" type="float" min="1" max="4" gui-text="Frets crown width:">2.3</param>
+        <param name="frets-crown-width" type="float" min="0.01" max="4" precision="3" gui-text="Frets crown width:">2.3</param>
         <param name="frets-crown-width-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -106,7 +106,7 @@
     <page name="FretsToolPaths" gui-text="Fret slots toolpaths">
       <param name="ftp-tool-draw" type="bool" gui-text="Draw fret slots toolpaths">false</param>
       <hbox>
-        <param name="ftp-tool-diameter" type="float" min="0.1" max="1" gui-text="Tool diameter:">0.5</param>
+        <param name="ftp-tool-diameter" type="float" min="0.01" max="1" precision="3" gui-text="Tool diameter:">0.5</param>
         <param name="ftp-tool-diameter-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -115,7 +115,7 @@
       </hbox>
       <param name="ftp-tool-stepover" type="int" min="1" max="100" gui-text="Tool stepover (%):">50</param>
       <hbox>
-        <param name="ftp-slot-width" type="float" min="0.1" max="1" gui-text="Slot width:">0.6</param>
+        <param name="ftp-slot-width" type="float" min="0.01" max="1" precision="3" gui-text="Slot width:">0.6</param>
         <param name="ftp-slot-width-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
@@ -123,7 +123,7 @@
         </param>
       </hbox>
       <hbox>
-        <param name="ftp-slot-margin" type="float" min="-10.0" max="10.0" gui-text="Slot length margin:">0.0</param>
+        <param name="ftp-slot-margin" type="float" min="-10.0" max="10.0" precision="3" gui-text="Slot length margin:">0.0</param>
         <param name="ftp-slot-margin-unit" type="optiongroup" appearance="radio" gui-text="unit:">
           <option value="mm">mm</option>
           <separator />
